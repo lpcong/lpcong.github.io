@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="audio,微信自动播放," />
+  <meta name="keywords" content="Canvas,圆角图像,图像合成," />
 
 
 
@@ -86,19 +86,43 @@
 
 
 
-<meta name="description" content="IOS是禁止了音视频的autoplay的，需要用户有手动触发行为才能播放。在微信传播的H5想要实现页面的音视频自动播放，要通过一些特殊的处理。
-查阅过之前一些大神的处理办法，有用新建一个HTMLImageElement对象的，然后监听load事件后执行audio.play()的；也有用createEvent和dispatchEvent触发事件后执行audio.play()。但用iphone7P实测">
+<meta name="description" content="做页面的时候遇到过这么一个小需求：要把拉取到的矩形用户头像放在游戏宣传图中间，而且要使用圆形的头像，并供用户自己下载到本地。
+
+直接上需求例子：
+背景图：
+头像（矩形）：
+需要的合成的目标图：
+看到这样的需求，关键点有两个，一个是两张图合成为一张，另外一个是普通的矩形图片变成圆形。
+其中，要把两张图合成一张，可以用Canvas的drawImage来把两张图顺序的绘制到同一个画布上叠加一起即可；而">
 <meta property="og:type" content="article">
-<meta property="og:title" content="H5页面在微信下audio自动播放">
-<meta property="og:url" content="http://lpcong.com/wx-audio-autoplay/index.html">
+<meta property="og:title" content="Canvas圆角图像合成">
+<meta property="og:url" content="http://lpcong.com/2017/02/07/Canvas-image-composite/index.html">
 <meta property="og:site_name" content="吊烧鸡腿">
-<meta property="og:description" content="IOS是禁止了音视频的autoplay的，需要用户有手动触发行为才能播放。在微信传播的H5想要实现页面的音视频自动播放，要通过一些特殊的处理。
-查阅过之前一些大神的处理办法，有用新建一个HTMLImageElement对象的，然后监听load事件后执行audio.play()的；也有用createEvent和dispatchEvent触发事件后执行audio.play()。但用iphone7P实测">
-<meta property="og:updated_time" content="2017-02-14T06:59:18.314Z">
+<meta property="og:description" content="做页面的时候遇到过这么一个小需求：要把拉取到的矩形用户头像放在游戏宣传图中间，而且要使用圆形的头像，并供用户自己下载到本地。
+
+直接上需求例子：
+背景图：
+头像（矩形）：
+需要的合成的目标图：
+看到这样的需求，关键点有两个，一个是两张图合成为一张，另外一个是普通的矩形图片变成圆形。
+其中，要把两张图合成一张，可以用Canvas的drawImage来把两张图顺序的绘制到同一个画布上叠加一起即可；而">
+<meta property="og:image" content="http://okzuu09cn.bkt.clouddn.com/bg.jpg">
+<meta property="og:image" content="http://okzuu09cn.bkt.clouddn.com/head.png">
+<meta property="og:image" content="http://okzuu09cn.bkt.clouddn.com/target.png">
+<meta property="og:image" content="http://okzuu09cn.bkt.clouddn.com/type.png">
+<meta property="og:image" content="http://okzuu09cn.bkt.clouddn.com/demo2.png">
+<meta property="og:updated_time" content="2017-02-14T07:01:16.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="H5页面在微信下audio自动播放">
-<meta name="twitter:description" content="IOS是禁止了音视频的autoplay的，需要用户有手动触发行为才能播放。在微信传播的H5想要实现页面的音视频自动播放，要通过一些特殊的处理。
-查阅过之前一些大神的处理办法，有用新建一个HTMLImageElement对象的，然后监听load事件后执行audio.play()的；也有用createEvent和dispatchEvent触发事件后执行audio.play()。但用iphone7P实测">
+<meta name="twitter:title" content="Canvas圆角图像合成">
+<meta name="twitter:description" content="做页面的时候遇到过这么一个小需求：要把拉取到的矩形用户头像放在游戏宣传图中间，而且要使用圆形的头像，并供用户自己下载到本地。
+
+直接上需求例子：
+背景图：
+头像（矩形）：
+需要的合成的目标图：
+看到这样的需求，关键点有两个，一个是两张图合成为一张，另外一个是普通的矩形图片变成圆形。
+其中，要把两张图合成一张，可以用Canvas的drawImage来把两张图顺序的绘制到同一个画布上叠加一起即可；而">
+<meta name="twitter:image" content="http://okzuu09cn.bkt.clouddn.com/bg.jpg">
 
 
 
@@ -119,10 +143,10 @@
 
 
 
-  <link rel="canonical" href="http://lpcong.com/wx-audio-autoplay/"/>
+  <link rel="canonical" href="http://lpcong.com/2017/02/07/Canvas-image-composite/"/>
 
 
-  <title> H5页面在微信下audio自动播放 | 吊烧鸡腿 </title>
+  <title> Canvas圆角图像合成 | 吊烧鸡腿 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +295,7 @@
             
             
               
-                H5页面在微信下audio自动播放
+                Canvas圆角图像合成
               
             
           </h1>
@@ -283,8 +307,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-09T11:22:46+08:00" content="2017-02-09">
-              2017-02-09
+            <time itemprop="dateCreated" datetime="2017-02-07T15:58:01+08:00" content="2017-02-07">
+              2017-02-07
             </time>
           </span>
 
@@ -313,8 +337,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/wx-audio-autoplay/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="wx-audio-autoplay/" itemprop="commentsCount"></span>
+                <a href="/2017/02/07/Canvas-image-composite/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/07/Canvas-image-composite/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,7 +348,7 @@
 
           
           
-             <span id="/wx-audio-autoplay/" class="leancloud_visitors" data-flag-title="H5页面在微信下audio自动播放">
+             <span id="/2017/02/07/Canvas-image-composite/" class="leancloud_visitors" data-flag-title="Canvas圆角图像合成">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -346,12 +370,29 @@
       
 
       
-        <p>IOS是禁止了音视频的autoplay的，需要用户有手动触发行为才能播放。在微信传播的H5想要实现页面的音视频自动播放，要通过一些特殊的处理。</p>
-<p>查阅过之前一些大神的处理办法，有用新建一个HTMLImageElement对象的，然后监听load事件后执行audio.play()的；也有用createEvent和dispatchEvent触发事件后执行audio.play()。但用iphone7P实测过现在已经不生效了。</p>
-<p>我们可以借助微信本身做特殊处理：</p>
-<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>借助客户端浏览器内置JS对象WeixinJSBridge检测<strong>WeixinJSBridgeReady</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;</div><div class="line">    &lt;title&gt;Audio自动播放&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;audio src=&quot;muisc.mp3&quot; id=&quot;bgMusic&quot; autoplay preload loop&gt;&lt;/audio&gt;</div><div class="line">&lt;a href=&quot;javascript:;&quot; id=&quot;audioPlay&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    var</div><div class="line">        music = document.getElementById(&apos;bgMusic&apos;),</div><div class="line">        btnPlay = document.getElementById(&apos;audioPlay&apos;);</div><div class="line"></div><div class="line">    if(typeof WeixinJSBridge == &quot;undefined&quot;) &#123;</div><div class="line">        document.addEventListener(&quot;WeixinJSBridgeReady&quot;, function () &#123;</div><div class="line">            music.play();</div><div class="line">        &#125;, false);</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    btnPlay.addEventListener(&apos;touchend&apos;,function()&#123;</div><div class="line">        if(!music.paused) &#123; </div><div class="line">            music.pause();  </div><div class="line">        &#125; else &#123; </div><div class="line">            music.play(); </div><div class="line">        &#125;</div><div class="line">    &#125;,false);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>借助WeixinJSAPI的<strong>wx.ready</strong>回调执行audio的play：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&lt;!doctype html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;</div><div class="line">    &lt;title&gt;Audio自动播放&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;audio src=&quot;muisc.mp3&quot; id=&quot;bgMusic&quot; autoplay preload loop&gt;&lt;/audio&gt;</div><div class="line">&lt;a href=&quot;javascript:;&quot; id=&quot;audioPlay&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;script src=&quot;http://res.wx.qq.com/open/js/jweixin-1.0.0.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    var</div><div class="line">        music = document.getElementById(&apos;bgMusic&apos;),</div><div class="line">        btnPlay = document.getElementById(&apos;audioPlay&apos;);</div><div class="line">    wx.config(&#123;</div><div class="line">        // 配置信息 可为空,,但config方法必须使用</div><div class="line">    &#125;);</div><div class="line">    wx.ready(function () &#123;</div><div class="line">        music.play();</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    btnPlay.addEventListener(&apos;touchend&apos;,function()&#123;</div><div class="line">        if(!music.paused) &#123; </div><div class="line">            music.pause();  </div><div class="line">        &#125; else &#123; </div><div class="line">            music.play(); </div><div class="line">        &#125;</div><div class="line">    &#125;,false);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
-<p>wx.ready()是在wx.config里信息验证后才会触发执行的，所以调用也是在wx.config()之后。如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。</p>
+        <blockquote>
+<p>做页面的时候遇到过这么一个小需求：要把拉取到的矩形用户头像放在游戏宣传图中间，而且要使用圆形的头像，并供用户自己下载到本地。</p>
+</blockquote>
+<p>直接上需求例子：</p>
+<p>背景图：<br><img src="http://okzuu09cn.bkt.clouddn.com/bg.jpg" alt="背景图"></p>
+<p>头像（矩形）：<br><img src="http://okzuu09cn.bkt.clouddn.com/head.png" alt="头像"></p>
+<p>需要的合成的目标图：<br><img src="http://okzuu09cn.bkt.clouddn.com/target.png" alt="头像"></p>
+<p>看到这样的需求，关键点有两个，一个是两张图合成为一张，另外一个是普通的矩形图片变成圆形。</p>
+<p>其中，要把两张图合成一张，可以用Canvas的drawImage来把两张图顺序的绘制到同一个画布上叠加一起即可；而要把一张矩形图片变成圆形，第一时间想到的是用css的border-radius属性，但在图片合成的时候，实际上使用的还是矩形的图片，border-radius只影响对应的HTML标签而不会处理图像本身。</p>
+<p>既然border-radius不行，这里可以利用Canvas 2D API里面的<strong>createPattern()</strong>来解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CanvasPattern ctx.createPattern(image, repetition);</div></pre></td></tr></table></figure></p>
+<p>createPattern的作用是把指定的图像转换成可填充的图案对象，用作rendering context绘制形状时的填充内容。</p>
+<p>上面的image参数是需要转换成填充图案的对象，可选HTMLImageElement、HTMLVideoElement、HTMLCanvasElement或Blob对象等。而repetition参数是指定如何重复图像，可选”reapeat”、”repeat-x”、”repeat-y”、”no-repeat”。</p>
+<p>那么，绘制一个带圆角的图像，主要的JS代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var image = new Image();</div><div class="line">image.onload = function() &#123;</div><div class="line">    // 创建一个临时canvas绘制图案</div><div class="line">    var </div><div class="line">    	tmp_canvas = document.createElement(&apos;canvas&apos;),</div><div class="line">    	tmp_ctx = tmp_canvas.getContext(&apos;2d&apos;);</div><div class="line">    tmp_canvas.width = image.width;</div><div class="line">    tmp_canvas.height = image.height;</div><div class="line">    document.body.appendChild(tmp_canvas);</div><div class="line">    // 创建填充图案对象</div><div class="line">    var pattern = tmp_ctx.createPattern(image, &quot;no-repeat&quot;);</div><div class="line">    // 设置填充的内容</div><div class="line">    tmp_ctx.fillStyle = pattern;</div><div class="line">    // 绘制一个圆形</div><div class="line">    tmp_ctx.arc(image.width/2, image.height/2, image.height/2, 0, 2 * Math.PI);</div><div class="line">    tmp_ctx.fill();</div><div class="line">&#125;;</div><div class="line">image.src = &apos;head.png&apos;;</div></pre></td></tr></table></figure></p>
+<p>当然，不仅仅是圆形，还可以绘制其他形状，把pattern填充进去即可。<a href="http://119.29.8.64/source/andypliang/demo/canvas/demo1.html" target="_blank" rel="external">demo在此</a><br><img src="http://okzuu09cn.bkt.clouddn.com/type.png" alt=""></p>
+<p>既然可以绘制圆形图像了，我们再来处理下两张图合成。合成主要是用到Canvas的<strong>drawImage</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);</div></pre></td></tr></table></figure></p>
+<p>通常情况下，我们会用一个大的画布，把背景图绘制上去之后，然后再用上述的createPattern()把圆形头像叠加在正中间。</p>
+<p>但这么处理的时候却发现，合成的头像是这样的，<a href="http://119.29.8.64/source/andypliang/demo/canvas/demo2.html" target="_blank" rel="external">代码</a>：</p>
+<p><img src="http://okzuu09cn.bkt.clouddn.com/demo2.png" alt=""></p>
+<p>what？头像咋歪了~</p>
+<p>排查了一下，发现原来是 ctx.createPattern(image, “repeat”) 实际上是会从画布的左上角开始在水平和垂直方向平铺，用ctx.arc在中心点画圆的时候，圈显的实际上是平铺的一部分，如果不设重复的参数为repeat的话，中心点还妥妥的不会显示图像。</p>
+<p>既然不能直接在大的画布上填充createPattern生成的图像，那这里取巧先用一个跟头像一样尺寸的临时画布，把圆形的头像绘制进去，然后再通过canvas.toDataURL()来获取临时画布的图像信息，再把这些图像信息通过drawImage()方法绘制到大画布上即可避免了上述的问题。</p>
+<p>整体主要的JS代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">var</div><div class="line">    canvas = document.getElementById(&apos;canvas&apos;),</div><div class="line">    ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line">var bg = new Image(), head = new Image();</div><div class="line">var flag = [0,0];</div><div class="line">var bg_width,bg_height,head_width,head_height;</div><div class="line"> // 图像合成</div><div class="line">function composeImage() &#123;</div><div class="line">    canvas.width = bg_width;</div><div class="line">    canvas.height = bg_height;</div><div class="line">    // 借助一个临时canvas 绘制圆形头像</div><div class="line">    var </div><div class="line">        tmp_canvas = document.createElement(&apos;canvas&apos;),</div><div class="line">        tmp_ctx = tmp_canvas.getContext(&apos;2d&apos;);</div><div class="line">    tmp_canvas.width = head_width;</div><div class="line">    tmp_canvas.height = head_height;</div><div class="line">    tmp_canvas.style = &apos;display:none&apos;;</div><div class="line">    document.body.appendChild(tmp_canvas);</div><div class="line">    // 重置画布</div><div class="line">    ctx.clearRect(0,0,bg_width,bg_height);</div><div class="line">    // 画背景图</div><div class="line">    ctx.drawImage(bg,0,0,bg_width,bg_height,0,0,bg_width,bg_height);</div><div class="line">    // 绘制头像到临时canvas</div><div class="line">    var s_pattern = tmp_ctx.createPattern(head, &quot;no-repeat&quot;);</div><div class="line">    tmp_ctx.fillStyle = s_pattern;</div><div class="line">    // 绘制一个圆型图片</div><div class="line">    tmp_ctx.arc(head_width/2, head_height/2, head_width/2, 0, 2 * Math.PI);</div><div class="line">    tmp_ctx.fill(); </div><div class="line">    // 拿到临时canvas的dataURL数据，放到image对象绘制到canvas里</div><div class="line">    var</div><div class="line">        s_head = new Image();</div><div class="line">    s_head.onload = function() &#123;</div><div class="line">        ctx.drawImage(s_head,0,0,head_width,head_height,(bg_width-head_width)/2,(bg_height-head_height)/2,head_width,head_height);</div><div class="line">    &#125;;</div><div class="line">    s_head.src = tmp_canvas.toDataURL();</div><div class="line">&#125;</div><div class="line">bg.crossOrigin = &quot;Anonymous&quot;;</div><div class="line">head.crossOrigin = &quot;Anonymous&quot;;</div><div class="line">bg.onload = function()&#123;</div><div class="line">    bg_width = bg.width; bg_height = bg.height; flag[0] = 1;</div><div class="line">    if(flag[1]) &#123; composeImage(); &#125;</div><div class="line">&#125;;</div><div class="line">head.onload = function() &#123;</div><div class="line">    head_width = head.width; head_height = head.height; flag[1] = 1;</div><div class="line">    if(flag[0]) &#123; composeImage(); &#125;</div><div class="line">&#125;;</div><div class="line">bg.src = &apos;bg.jpg&apos;;</div><div class="line">head.src = &apos;head.png&apos;;</div></pre></td></tr></table></figure></p>
+<p><a href="http://119.29.8.64/source/andypliang/demo/canvas/demo3.html" target="_blank" rel="external">完整的demo</a></p>
 
       
     </div>
@@ -374,9 +415,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/audio/" rel="tag">#audio</a>
+            <a href="/tags/Canvas/" rel="tag">#Canvas</a>
           
-            <a href="/tags/微信自动播放/" rel="tag">#微信自动播放</a>
+            <a href="/tags/圆角图像/" rel="tag">#圆角图像</a>
+          
+            <a href="/tags/图像合成/" rel="tag">#图像合成</a>
           
         </div>
       
@@ -385,16 +428,12 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Canvas-image-composite/" rel="next" title="Canvas圆角图像合成">
-                <i class="fa fa-chevron-left"></i> Canvas圆角图像合成
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/h5-pickerview/" rel="prev" title="纯原生Javascript实现的移动端多级选择器插件">
-                纯原生Javascript实现的移动端多级选择器插件 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/09/wx-audio-autoplay/" rel="prev" title="H5页面在微信下audio自动播放">
+                H5页面在微信下audio自动播放 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -447,8 +486,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="wx-audio-autoplay/"
-           data-title="H5页面在微信下audio自动播放" data-url="http://lpcong.com/wx-audio-autoplay/">
+      <div class="ds-thread" data-thread-key="2017/02/07/Canvas-image-composite/"
+           data-title="Canvas圆角图像合成" data-url="http://lpcong.com/2017/02/07/Canvas-image-composite/">
       </div>
     
   </div>
@@ -573,7 +612,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一"><span class="nav-number">1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二"><span class="nav-number">2.</span> <span class="nav-text">方法二</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
